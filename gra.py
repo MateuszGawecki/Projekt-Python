@@ -52,27 +52,27 @@ class Classic(Rules):
         for column in range(self.COLUMN_COUNT - 3):
             for row in range(self.ROW_COUNT):
                 if self.board[row][column] == element and self.board[row][column + 1] == element and \
-                        self.board[row][column + 2] and self.board[row][column + 3] == element:
+                        self.board[row][column + 2] == element and self.board[row][column + 3] == element:
                     return True
 
         # vertical
         for column in range(self.COLUMN_COUNT):
             for row in range(self.ROW_COUNT - 3):
                 if self.board[row][column] == element and self.board[row + 1][column] == element and \
-                        self.board[row + 2][column] and self.board[row + 3][column] == element:
+                        self.board[row + 2][column] == element and self.board[row + 3][column] == element:
                     return True
 
         # diagonal positive/negative
         for column in range(self.COLUMN_COUNT - 3):
             for row in range(self.ROW_COUNT - 3):
                 if self.board[row][column] == element and self.board[row + 1][column + 1] == element and \
-                        self.board[row + 2][column + 2] and self.board[row + 3][column + 3] == element:
+                        self.board[row + 2][column + 2] == element and self.board[row + 3][column + 3] == element:
                     return True
 
-        for column in range(self.COLUMN_COUNT):
+        for column in range(self.COLUMN_COUNT - 3):
             for row in range(3, self.ROW_COUNT):
                 if self.board[row][column] == element and self.board[row - 1][column + 1] == element and \
-                        self.board[row - 2][column + 2] and self.board[row - 3][column + 3] == element:
+                        self.board[row - 2][column + 2] == element and self.board[row - 3][column + 3] == element:
                     return True
 
 
@@ -92,9 +92,15 @@ class FiveInRow(Rules):
 
     def who_won(self):
         if self.winning_move(1):
-            return "Player 1 Wins!"
+            return 1
         elif self.winning_move(2):
-            return "Player 2 Wins!"
+            return 2
+
+    def get_row_count(self):
+        return self.ROW_COUNT
+
+    def get_column_count(self):
+        return self.COLUMN_COUNT
 
     def reset_board(self):
         for row in range(self.ROW_COUNT):
@@ -117,33 +123,33 @@ class FiveInRow(Rules):
 
     def winning_move(self, element):
         # horizontal
-        for column in range(self.COLUMN_COUNT - 3):
+        for column in range(self.COLUMN_COUNT - 4):
             for row in range(self.ROW_COUNT):
                 if self.board[row][column] == element and self.board[row][column + 1] == element and \
-                        self.board[row][column + 2] and self.board[row][column + 3] == element and\
+                        self.board[row][column + 2] == element and self.board[row][column + 3] == element and\
                         self.board[row][column + 4] == element:
                     return True
 
         # vertical
         for column in range(self.COLUMN_COUNT):
-            for row in range(self.ROW_COUNT - 3):
+            for row in range(self.ROW_COUNT - 4):
                 if self.board[row][column] == element and self.board[row + 1][column] == element and \
-                        self.board[row + 2][column] and self.board[row + 3][column] == element and \
+                        self.board[row + 2][column] == element and self.board[row + 3][column] == element and \
                         self.board[row + 4][column] == element:
                     return True
 
         # diagonal positive/negative
-        for column in range(self.COLUMN_COUNT - 3):
-            for row in range(self.ROW_COUNT - 3):
+        for column in range(self.COLUMN_COUNT - 4):
+            for row in range(self.ROW_COUNT - 4):
                 if self.board[row][column] == element and self.board[row + 1][column + 1] == element and \
-                        self.board[row + 2][column + 2] and self.board[row + 3][column + 3] == element and\
+                        self.board[row + 2][column + 2] == element and self.board[row + 3][column + 3] == element and\
                         self.board[row + 4][column + 4] == element:
                     return True
 
-        for column in range(self.COLUMN_COUNT):
-            for row in range(3, self.ROW_COUNT):
+        for column in range(self.COLUMN_COUNT-4):
+            for row in range(4, self.ROW_COUNT):
                 if self.board[row][column] == element and self.board[row - 1][column + 1] == element and \
-                        self.board[row - 2][column + 2] and self.board[row - 3][column + 3] == element and \
+                        self.board[row - 2][column + 2] == element and self.board[row - 3][column + 3] == element and \
                         self.board[row - 4][column + 4] == element:
                     return True
 
