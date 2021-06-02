@@ -277,9 +277,14 @@ class Game:
                     if self.rule.is_free_space(col):
                         row = self.rule.get_next_free_space(col)
                         self.rule.drop_element(row, col, 1)
+                    else:
+                        self.wypisz_wiadomosc("Blad",False)
+                        pygame.display.update()
+                        pygame.time.wait(1500)
+                        continue
 
                     if self.rule.who_won() == 1:
-                        self.wypisz_wiadomosc("Player 1 won!")
+                        self.wypisz_wiadomosc("Player 1 won!",True)
 
                 else:
                     posx = event.pos[0]
@@ -288,12 +293,17 @@ class Game:
                     if self.rule.is_free_space(col):
                         row = self.rule.get_next_free_space(col)
                         self.rule.drop_element(row, col, 2)
+                    else:
+                        self.wypisz_wiadomosc("Blad",False)
+                        pygame.display.update()
+                        pygame.time.wait(1500)
+                        continue
 
                     if self.rule.who_won() == 2:
-                        self.wypisz_wiadomosc("Player 2 won!")
+                        self.wypisz_wiadomosc("Player 2 won!",True)
 
                 if self.rule.who_won() == 0 and self.rule.is_full():
-                    self.wypisz_wiadomosc("Remis")
+                    self.wypisz_wiadomosc("Remis",True)
 
                 # self.rule.print_board()
                 self.draw()
@@ -307,9 +317,9 @@ class Game:
                     self.draw()
                     self.game_over = False
 
-    def wypisz_wiadomosc(self, arg):
+    def wypisz_wiadomosc(self, arg, game_over):
         label = self.myfont.render(arg, 1, self.WHITE)
         self.screen.blit(label, (40, 10))
-        self.game_over = True
+        self.game_over = game_over
 
 Game()
